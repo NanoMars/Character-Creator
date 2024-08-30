@@ -84,21 +84,33 @@ function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, fac
     }
 }
 
+let look = [0,0,0,0,0];
+let buttons = []
 
-let selection1 = -1 
+function createButtonPair(number) {
+    buttons[number] = []
+    buttons[number][0] = new button(ctx, 'ArrowButton.svg', () => arr2[0] += 1, 1000, 100 * number, 0.7)
+    buttons[number][1] = new button(ctx, 'ArrowButton.svg', () => arr2[0] += 1, 100, 100 * number, 0.7)
+}
 
-const myButton = new button(ctx, 'ArrowButton.svg', () => selection1 += 1, 100, 100, 0.7)
+for (let i = 0; i < 5; i++) {
+    createButtonPair(i)
+}
 
-myButton.draw()
+function drawButtons() {
+    for (let i = 0; i < buttons.length; i++) {
+        for (let j = 0; j < buttons[i].length; j++) {
+            buttons[i][j].draw()
+        }
+    }
+}
 
-ctx.clearRect(0, 0, canvas.width, canvas.height)
+drawButtons();
 
-myButton.draw()
-
+console.log(buttons)
 
 canvas.addEventListener('click', (e) => {
-    myButton.isClicked(e.clientX, e.clientY)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawCharacter(ctx, 500, 200, 1, 4, "lightgrey", "cornflowerblue", 1, 0, [selection1, 1, '#592C1D'])
-    myButton.draw()
+    drawCharacter(ctx, 500, 200, 1, 4, "lightgrey", "cornflowerblue", 1, 0, [0, 1, '#592C1D'])
+    drawButtons();
 });
