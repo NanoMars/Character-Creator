@@ -23,10 +23,6 @@ class button {
         this.img = new Image()
         this.img.src = imgSrc
         this.loaded = false
-        console.log(this.img)
-        this.img.onload = function() {
-            this.loaded = true
-        }
     }
 
     draw() {
@@ -35,6 +31,7 @@ class button {
         } else {
             this.img.onload = () => {
                 this.ctx.drawImage(this.img, this.x, this.y, this.img.width * this.scale, this.img.height * this.scale)
+                this.loaded = true
             }
         }
     }
@@ -75,8 +72,8 @@ function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, fac
     const colour = skinColours[skin]
     drawPath(ctx, hairBack[hair[0]], x, y, scale, hair[2])
     drawPath(ctx, head, x, y, scale, colour)
-    drawPath(ctx, hairFront[hair[1]], x, y, scale, hair[2])
     drawPath(ctx, eyes[face], x + (75 * scale), y + (100 * scale), scale, "black")
+    drawPath(ctx, hairFront[hair[1]], x, y, scale, hair[2])
     drawPath(ctx, arms, x + (90 * scale), y + (320 * scale), scale, colour)
     drawPath(ctx, legs, x + (133 * scale), y + (430 * scale), scale, pantsColour)
     drawPath(ctx, shirt, x + (85 * scale), y + (250 * scale), scale, shirtColour)
@@ -88,7 +85,7 @@ function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, fac
 }
 
 
-let selection1 = -1
+let selection1 = -1 
 
 const myButton = new button(ctx, 'ArrowButton.svg', () => selection1 += 1, 100, 100, 0.7)
 
@@ -102,6 +99,6 @@ myButton.draw()
 canvas.addEventListener('click', (e) => {
     myButton.isClicked(e.clientX, e.clientY)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawCharacter(ctx, 500, 200, 1, 4, "lightgrey", "cornflowerblue", 0, 0, [, 0, '#592C1D'])
+    drawCharacter(ctx, 500, 200, 1, 4, "lightgrey", "cornflowerblue", 1, 0, [selection1, 1, '#592C1D'])
     myButton.draw()
 });
