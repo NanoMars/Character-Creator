@@ -13,6 +13,8 @@ import {hairFront} from "./db.js"
 import {hairColours} from "./db.js"
 import {eyes} from "./db.js"
 import {hats} from "./db.js"
+import {clothingColours} from "./db.js"
+
 
 class button {
     constructor(ctx, imgSrc, action, x, y, scale = 1) {
@@ -69,15 +71,16 @@ const arms = searchByName('arms', body)
 const legs = searchByName('legs', body)
 
 function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, face, hat, hair) {
-    console.log(hairColours[hair[2] % hairColours.length])
     const colour = skinColours[skin % (skinColours.length)]
     drawPath(ctx, hairBack[hair[0] % (hairBack.length + 1)], x, y, scale, hairColours[hair[2] % hairColours.length])
     drawPath(ctx, head, x, y, scale, colour)
     drawPath(ctx, eyes[face % (eyes.length + 1)], x + (75 * scale), y + (100 * scale), scale, "black")
     drawPath(ctx, hairFront[hair[1] % (hairFront.length + 1)], x, y, scale, hairColours[hair[2] % hairColours.length])
     drawPath(ctx, arms, x + (90 * scale), y + (320 * scale), scale, colour)
-    drawPath(ctx, legs, x + (133 * scale), y + (430 * scale), scale, pantsColour)
-    drawPath(ctx, shirt, x + (85 * scale), y + (250 * scale), scale, shirtColour)
+    drawPath(ctx, legs, x + (133 * scale), y + (430 * scale), scale, clothingColours[pantsColour % clothingColours.length])
+    drawPath(ctx, shirt, x + (85 * scale), y + (250 * scale), scale, clothingColours[shirtColour % clothingColours.length])
+    console.log(shirtColour % clothingColours.length)
+    console.log(clothingColours[shirtColour % clothingColours.length])
     const img = new Image();
     img.src = hats[hat % (hats.length)]
     img.onload = function() {
@@ -85,7 +88,7 @@ function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, fac
     }
 }
 
-let look = [0,0,0,0,0,0];
+let look = [0,0,0,0,0,0,0,0];
 let buttons = []
 
 function createButtonPair(number) {
@@ -94,7 +97,7 @@ function createButtonPair(number) {
     buttons[number][1] = new button(ctx, 'ArrowButtonReverse.svg', () => look[number] -= 1, 100, 150 * number, 0.7)
 }
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 8; i++) {
     createButtonPair(i)
 }
 
@@ -107,7 +110,7 @@ function drawButtons() {
 }
 
 drawButtons();
-drawCharacter(ctx, 500, 200, 1, look[0], "lightgrey", "cornflowerblue", look[1], look[2], [look[3], look[4], look[5]])
+drawCharacter(ctx, 500, 200, 1, look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
 
 canvas.addEventListener('click', (e) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -116,6 +119,6 @@ canvas.addEventListener('click', (e) => {
             buttons[i][j].isClicked(e.clientX, e.clientY)
         }
     }
-    drawCharacter(ctx, 500, 200, 1, look[0], "lightgrey", "cornflowerblue", look[1], look[2], [look[3], look[4], look[5]])
+    drawCharacter(ctx, 500, 200, 1, look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
     drawButtons();
 });

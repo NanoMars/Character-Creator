@@ -99,6 +99,37 @@ const hats = [
     "./empty.svg",
 ]
 
+const clothingColours = [
+    // Jeans Colors
+    "#3d3c42", 
+    "#4b4c55", 
+    "#1c2f36", 
+    "#2e3a40", 
+    "#5b6368",
+
+    // Blacks
+    "#000000", 
+    "#1a1a1a",
+
+    // Whites
+    "#ffffff", 
+    "#f5f5f5",
+
+    // Saturated Colors
+    "#ff5733", 
+    "#3498db", 
+    "#9b59b6", 
+    "#e74c3c", 
+    "#27ae60",
+
+    // Desaturated Colors
+    "#b0c4de", 
+    "#778899", 
+    "#708090", 
+    "#8b8b83", 
+    "#c0c0c0",
+]
+
 const body = [
     {
         "name": "shirt",
@@ -118,4 +149,4 @@ const body = [
     }
 ]
 
-export { skinColours, body, hairBack, hairFront, hairColours, eyes, hats}
+export { skinColours, body, hairBack, hairFront, hairColours, eyes, hats, clothingColours}
