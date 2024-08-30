@@ -22,6 +22,14 @@ function searchByName(name, data) {
     return null;
 }
 
+function drawButton(ctx, x, y, width, height) {
+    const arrowButton = new Image()
+    arrowButton.src = './ArrowButton.svg'
+    arrowButton.onload = function() {
+        ctx.drawImage(arrowButton, 10, 10, arrowButton.width, arrowButton.height)
+    }
+}
+
 function drawPath(ctx, path, x, y, scale = 1, color = '#fffff') {
     const path2D = new Path2D(path)
     ctx.save()
@@ -58,8 +66,3 @@ drawCharacter(100, 200, 1, 1, "lightgrey", "cornflowerblue", 1, 0, [1, 1, '#aace
 drawCharacter(500, 200, 1, 4, "lightgrey", "cornflowerblue", 0, 0, [0, 0, '#592C1D'])
 drawCharacter(900, 200, 1, 2, "lightgrey", "cornflowerblue", 0, 0, [-1, 1, '#592C1D'])
 
-const arrowButton = new Image();
-arrowButton.src = './ArrowButton.svg';
-arrowButton.onload = function() {
-    ctx.drawImage(arrowButton, 10, 10, arrowButton.width, arrowButton.height)
-}
