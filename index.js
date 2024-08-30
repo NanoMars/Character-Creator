@@ -13,6 +13,39 @@ import {hairFront} from "./db.js"
 import {eyes} from "./db.js"
 import {hats} from "./db.js"
 
+class button {
+    constructor(ctx, imgSrc, action, x, y, scale = 1) {
+        this.ctx = ctx
+        this.action = action
+        this.x = x
+        this.y = y
+        this.scale = scale
+        this.img = new Image()
+        this.img.src = imgSrc
+        this.loaded = false
+        console.log(this.img)
+        this.img.onload = function() {
+            this.loaded = true
+        }
+    }
+
+    draw() {
+        if (this.loaded) {
+            this.ctx.drawImage(this.img, this.x, this.y, this.img.width * this.scale, this.img.height * this.scale)
+        } else {
+            this.img.onload = () => {
+                this.ctx.drawImage(this.img, this.x, this.y, this.img.width * this.scale, this.img.height * this.scale)
+            }
+        }
+    }
+
+    isClicked(x, y) {
+        if (x > this.x && x < this.x + this.img.width * this.scale && y > this.y && y < this.y + this.img.height * this.scale) {
+            this.action()
+        }
+    }
+}
+
 function searchByName(name, data) {
     for (let i = 0; i < data.length; i++) {
         if (data[i].name === name) {
@@ -20,14 +53,6 @@ function searchByName(name, data) {
         }
     }
     return null;
-}
-
-function drawButton(ctx, x, y, width, height) {
-    const arrowButton = new Image()
-    arrowButton.src = './ArrowButton.svg'
-    arrowButton.onload = function() {
-        ctx.drawImage(arrowButton, 10, 10, arrowButton.width, arrowButton.height)
-    }
 }
 
 function drawPath(ctx, path, x, y, scale = 1, color = '#fffff') {
@@ -45,7 +70,7 @@ const head = searchByName('head', body)
 const arms = searchByName('arms', body)
 const legs = searchByName('legs', body)
 
-function drawCharacter(x, y, scale = 1, skin, pantsColour, shirtColour, face, hat, hair) {
+function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, face, hat, hair) {
     console.log(hair[2])
     const colour = skinColours[skin]
     drawPath(ctx, hairBack[hair[0]], x, y, scale, hair[2])
@@ -62,7 +87,21 @@ function drawCharacter(x, y, scale = 1, skin, pantsColour, shirtColour, face, ha
     }
 }
 
-drawCharacter(100, 200, 1, 1, "lightgrey", "cornflowerblue", 1, 0, [1, 1, '#aacede'])
-drawCharacter(500, 200, 1, 4, "lightgrey", "cornflowerblue", 0, 0, [0, 0, '#592C1D'])
-drawCharacter(900, 200, 1, 2, "lightgrey", "cornflowerblue", 0, 0, [-1, 1, '#592C1D'])
 
+let selection1 = -1
+
+const myButton = new button(ctx, 'ArrowButton.svg', () => selection1 += 1, 100, 100, 0.7)
+
+myButton.draw()
+
+ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+myButton.draw()
+
+
+canvas.addEventListener('click', (e) => {
+    myButton.isClicked(e.clientX, e.clientY)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawCharacter(ctx, 500, 200, 1, 4, "lightgrey", "cornflowerblue", 0, 0, [, 0, '#592C1D'])
+    myButton.draw()
+});
