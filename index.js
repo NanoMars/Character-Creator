@@ -1,6 +1,5 @@
 // index.js
 
-
 const canvas = document.createElement('canvas')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
@@ -55,4 +54,12 @@ function drawCharacter(x, y, scale = 1, skin, pantsColour, shirtColour, face, ha
     }
 }
 
-drawCharacter(1000, 2000, 2.2, 2, "pink", "lightgrey", 0, 0, [0, 0, '#aacede'])
+drawCharacter(100, 200, 1, 1, "lightgrey", "cornflowerblue", 1, 0, [1, 1, '#aacede'])
+drawCharacter(500, 200, 1, 4, "lightgrey", "cornflowerblue", 0, 0, [0, 0, '#592C1D'])
+drawCharacter(900, 200, 1, 2, "lightgrey", "cornflowerblue", 0, 0, [-1, 1, '#592C1D'])
+
+const arrowButton = new Image();
+arrowButton.src = './ArrowButton.svg';
+arrowButton.onload = function() {
+    ctx.drawImage(arrowButton, 10, 10, arrowButton.width, arrowButton.height)
+}
