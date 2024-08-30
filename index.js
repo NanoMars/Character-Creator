@@ -89,8 +89,8 @@ let buttons = []
 
 function createButtonPair(number) {
     buttons[number] = []
-    buttons[number][0] = new button(ctx, 'ArrowButton.svg', () => arr2[0] += 1, 1000, 100 * number, 0.7)
-    buttons[number][1] = new button(ctx, 'ArrowButton.svg', () => arr2[0] += 1, 100, 100 * number, 0.7)
+    buttons[number][0] = new button(ctx, 'ArrowButton.svg', () => look[number] += 1, 1000, 150 * number, 0.7)
+    buttons[number][1] = new button(ctx, 'ArrowButtonReverse.svg', () => look[number] -= 1, 100, 150 * number, 0.7)
 }
 
 for (let i = 0; i < 5; i++) {
@@ -111,6 +111,11 @@ console.log(buttons)
 
 canvas.addEventListener('click', (e) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawCharacter(ctx, 500, 200, 1, 4, "lightgrey", "cornflowerblue", 1, 0, [0, 1, '#592C1D'])
+    for (let i = 0; i < buttons.length; i++) {
+        for (let j = 0; j < buttons[i].length; j++) {
+            buttons[i][j].isClicked(e.clientX, e.clientY)
+        }
+    }
+    drawCharacter(ctx, 500, 200, 1, look[0], "lightgrey", "cornflowerblue", look[1], look[2], [look[3], look[4], '#592C1D'])
     drawButtons();
 });
