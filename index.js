@@ -131,7 +131,7 @@ function createButtonPair(number) {
 }
 
 for (let i = 0; i < 8; i++) {
-    createButtonPair(i)
+    createButtonPair(i) 
 }
 
 function drawButtons() {
