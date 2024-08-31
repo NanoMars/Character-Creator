@@ -146,7 +146,7 @@ drawEverything()
 
 canvas.addEventListener('click', (e) => {
     for (let i = 0; i < buttons.length; i++) {
-        for (let j = 0; j < buttons[i].length; j++) {
+        for (let j = 0; j < buttons[i].length; j++) {   
             buttons[i][j].isClicked(e.clientX, e.clientY)
         }
     }
