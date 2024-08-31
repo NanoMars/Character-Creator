@@ -93,8 +93,8 @@ let buttons = []
 
 function createButtonPair(number) {
     buttons[number] = []
-    buttons[number][0] = new button(ctx, 'ArrowButton.svg', () => look[number] += 1, window.innerWidth - 140, 100 * number, 0.5)
-    buttons[number][1] = new button(ctx, 'ArrowButtonReverse.svg', () => look[number] -= 1, 40, 100 * number, 0.5)
+    buttons[number][0] = new button(ctx, 'ArrowButton.svg', () => look[number] += 1, window.innerWidth - 140,(window.innerHeight / look.length) * number, Math.min(window.innerWidth / 1920, window.innerHeight / 1920))
+    buttons[number][1] = new button(ctx, 'ArrowButtonReverse.svg', () => look[number] -= 1, 40, (window.innerHeight / look.length) * number, Math.min(window.innerWidth / 1920, window.innerHeight / 1920))
 }
 
 for (let i = 0; i < 8; i++) {
@@ -110,7 +110,7 @@ function drawButtons() {
 }
 
 drawButtons();
-drawCharacter(ctx, (window.innerWidth / 2) - 200, 200, 1, look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
+drawCharacter(ctx, (window.innerWidth / 2) - 200 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), (window.innerHeight / 2) - 220 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), Math.min(window.innerWidth / 1000, window.innerHeight / 1000), look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
 console.log(window.innerWidth)
 canvas.addEventListener('click', (e) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -119,6 +119,6 @@ canvas.addEventListener('click', (e) => {
             buttons[i][j].isClicked(e.clientX, e.clientY)
         }
     }
-    drawCharacter(ctx, (window.innerWidth / 2) - 200, 200, 1, look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
+    drawCharacter(ctx, (window.innerWidth / 2) - 200 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), (window.innerHeight / 2) - 220 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), Math.min(window.innerWidth / 1000, window.innerHeight / 1000), look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
     drawButtons();
 });
