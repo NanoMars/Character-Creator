@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="768" height="768"><svg id="SvgjsSvg1000" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 768 768">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-1, .cls-3 {
+        fill: #ffc200;
+      }
+
+      .cls-2 {
+        fill: #000;
+      }
+
+      .cls-3 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 41.61px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M92.26,141.8h583.33c38.88,0,70.4,31.52,70.4,70.4v335.42c0,38.88-31.52,70.4-70.4,70.4l-288.07,7.34-295.27-7.34c-38.88,0-70.4-31.52-70.4-70.4V212.2c0-38.88,31.52-70.4,70.4-70.4Z"></path>
+  <g>
+    <circle class="cls-2" cx="532.5" cy="383.58" r="129.45"></circle>
+    <line class="cls-3" x1="105.91" y1="383.58" x2="364.8" y2="383.58"></line>
+  </g>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+</style></svg>

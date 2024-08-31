@@ -1,8 +1,6 @@
 // index.js
 
 const canvas = document.createElement('canvas')
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
 document.body.appendChild(canvas)
 const ctx = canvas.getContext('2d')
 
@@ -17,18 +15,27 @@ import {clothingColours} from "./db.js"
 
 
 class button {
-    constructor(ctx, imgSrc, action, x, y, scale = 1) {
+    constructor(ctx, imgSrc, action, number, reverse) {
         this.ctx = ctx
         this.action = action
-        this.x = x
-        this.y = y
-        this.scale = scale
+        this.number = number
+        this.reverse = reverse
         this.img = new Image()
         this.img.src = imgSrc
         this.loaded = false
     }
 
     draw() {
+        if (this.reverse) {
+            this.x = window.innerWidth - 140
+            this.y = (window.innerHeight / look.length) * this.number
+        } else {
+            this.x = 100
+            this.y = (window.innerHeight / look.length) * this.number
+        }
+        
+        this.scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1920)
+
         if (this.loaded) {
             this.ctx.drawImage(this.img, this.x, this.y, this.img.width * this.scale, this.img.height * this.scale)
         } else {
@@ -70,7 +77,10 @@ const head = searchByName('head', body)
 const arms = searchByName('arms', body)
 const legs = searchByName('legs', body)
 
-function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, face, hat, hair) {
+function drawCharacter(ctx, skin, pantsColour, shirtColour, face, hat, hair) {
+    let x = (window.innerWidth / 2) - 200 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000)
+    let y = (window.innerHeight / 2) - 220 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000)
+    let scale = Math.min(window.innerWidth / 1000, window.innerHeight / 1000)
     const colour = skinColours[skin % (skinColours.length)]
     drawPath(ctx, hairBack[hair[0] % (hairBack.length + 1)], x, y, scale, hairColours[hair[2] % hairColours.length])
     drawPath(ctx, head, x, y, scale, colour)
@@ -88,13 +98,22 @@ function drawCharacter(ctx, x, y, scale = 1, skin, pantsColour, shirtColour, fac
     }
 }
 
+function drawEverything() {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawCharacter(ctx, look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
+    drawButtons();
+}
+
 let look = [0,0,0,0,0,0,0,0];
 let buttons = []
 
 function createButtonPair(number) {
     buttons[number] = []
-    buttons[number][0] = new button(ctx, 'ArrowButton.svg', () => look[number] += 1, window.innerWidth - 140,(window.innerHeight / look.length) * number, Math.min(window.innerWidth / 1920, window.innerHeight / 1920))
-    buttons[number][1] = new button(ctx, 'ArrowButtonReverse.svg', () => look[number] -= 1, 40, (window.innerHeight / look.length) * number, Math.min(window.innerWidth / 1920, window.innerHeight / 1920))
+    buttons[number][0] = new button(ctx, 'ArrowButton.svg', () => look[number] += 1, number, true)
+    buttons[number][1] = new button(ctx, 'ArrowButtonReverse.svg', () => look[number] -= 1, number, false)
+    console.log(number)
 }
 
 for (let i = 0; i < 8; i++) {
@@ -109,16 +128,15 @@ function drawButtons() {
     }
 }
 
-drawButtons();
-drawCharacter(ctx, (window.innerWidth / 2) - 200 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), (window.innerHeight / 2) - 220 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), Math.min(window.innerWidth / 1000, window.innerHeight / 1000), look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
-console.log(window.innerWidth)
+drawEverything()
+
 canvas.addEventListener('click', (e) => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
     for (let i = 0; i < buttons.length; i++) {
         for (let j = 0; j < buttons[i].length; j++) {
             buttons[i][j].isClicked(e.clientX, e.clientY)
         }
     }
-    drawCharacter(ctx, (window.innerWidth / 2) - 200 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), (window.innerHeight / 2) - 220 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000), Math.min(window.innerWidth / 1000, window.innerHeight / 1000), look[0], look[6], look[7], look[1], look[2], [look[3], look[4], look[5]])
-    drawButtons();
+    drawEverything()
 });
+
+window.addEventListener('resize', drawEverything);
