@@ -98,18 +98,17 @@ function drawCharacter(ctx, skin, pantsColour, shirtColour, face, hat, hair) {
     img.onload = function() {
         let hatScale = 4.4
         ctx.drawImage(img, x, y - 29 * hatScale * scale, img.width * hatScale * scale, img.height * hatScale * scale)
-        drawPath(ctx, hairBack[hair[0] % (hairBack.length + 1)], x, y, scale, hairColours[hair[2] % hairColours.length])
-        drawPath(ctx, head, x, y, scale, colour)
-        drawPath(ctx, eyes[face % (eyes.length + 1)], x + (75 * scale), y + (100 * scale), scale, "black")
-        drawPath(ctx, hairFront[hair[1] % (hairFront.length + 1)], x, y, scale, hairColours[hair[2] % hairColours.length])
-        drawPath(ctx, arms, x + (90 * scale), y + (320 * scale), scale, colour)
-        drawPath(ctx, legs, x + (133 * scale), y + (430 * scale), scale, clothingColours[pantsColour % clothingColours.length])
-        drawPath(ctx, shirt, x + (85 * scale), y + (250 * scale), scale, clothingColours[shirtColour % clothingColours.length])
-        console.log(shirtColour % clothingColours.length)
-        console.log(clothingColours[shirtColour % clothingColours.length])
     }
 
-    
+    drawPath(ctx, hairBack[hair[0] % (hairBack.length + 1)], x, y, scale, hairColours[hair[2] % hairColours.length])
+    drawPath(ctx, head, x, y, scale, colour)
+    drawPath(ctx, eyes[face % (eyes.length + 1)], x + (75 * scale), y + (100 * scale), scale, "black")
+    drawPath(ctx, hairFront[hair[1] % (hairFront.length + 1)], x, y, scale, hairColours[hair[2] % hairColours.length])
+    drawPath(ctx, arms, x + (90 * scale), y + (320 * scale), scale, colour)
+    drawPath(ctx, legs, x + (133 * scale), y + (430 * scale), scale, clothingColours[pantsColour % clothingColours.length])
+    drawPath(ctx, shirt, x + (85 * scale), y + (250 * scale), scale, clothingColours[shirtColour % clothingColours.length])
+    console.log(shirtColour % clothingColours.length)
+    console.log(clothingColours[shirtColour % clothingColours.length])
     
 }
 
