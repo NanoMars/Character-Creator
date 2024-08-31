@@ -97,6 +97,7 @@ const eyes = [
 const hats = [
     "./hats/partyhat.svg",
     "./hats/halo.svg",
+    "./hats/horns.svg",  
     "./empty.svg",
 ]
 

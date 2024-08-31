@@ -78,6 +78,15 @@ const arms = searchByName('arms', body)
 const legs = searchByName('legs', body)
 
 function drawCharacter(ctx, skin, pantsColour, shirtColour, face, hat, hair) {
+    skin = Math.abs(skin)
+    pantsColour = Math.abs(pantsColour)
+    shirtColour = Math.abs(shirtColour)
+    face = Math.abs(face)
+    hat = Math.abs(hat)
+    hair[0] = Math.abs(hair[0])
+    hair[1] = Math.abs(hair[1])
+    hair[2] = Math.abs(hair[2])
+
     let x = (window.innerWidth / 2) - 200 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000)
     let y = (window.innerHeight / 2) - 220 * Math.min(window.innerWidth / 1000, window.innerHeight / 1000)
     let scale = Math.min(window.innerWidth / 1000, window.innerHeight / 1000)
@@ -93,8 +102,10 @@ function drawCharacter(ctx, skin, pantsColour, shirtColour, face, hat, hair) {
     console.log(clothingColours[shirtColour % clothingColours.length])
     const img = new Image();
     img.src = hats[hat % (hats.length)]
+    console.log(hat)
     img.onload = function() {
-        ctx.drawImage(img, x, y - (img.height *  4/5 * scale) , img.width * 4 * scale, img.height * 4 * scale)
+        let hatScale = 4.4
+        ctx.drawImage(img, x, y - 29 * hatScale * scale, img.width * hatScale * scale, img.height * hatScale * scale)
     }
 }
 
