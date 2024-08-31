@@ -98,6 +98,7 @@ const hats = [
     "./hats/partyhat.svg",
     "./hats/halo.svg",
     "./hats/horns.svg",  
+    "./hats/gun.svg",
     "./empty.svg",
 ]
 
